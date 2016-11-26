@@ -47,6 +47,7 @@
     
     self.view.backgroundColor = [UIColor greenColor];
     
+    self.navigationItem.title = @"POP";
     
     
 }

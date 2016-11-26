@@ -21,12 +21,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    CGFloat x = 100;
-    CGFloat w = 120;
-    CGFloat h = 50;
-    
-    [self createButtonWithTitle:@"POP" frame:CGRectMake(x, 100, w, h) tag:1];
-    [self createButtonWithTitle:@"UIDynamic" frame:CGRectMake(x, 200, w, h) tag:2];
+    [self createButtonWithTitle:@"POP" tag:1];
+    [self createButtonWithTitle:@"UIDynamic" tag:2];
     
     
     
@@ -35,10 +31,10 @@
     
 }
 
-- (void)createButtonWithTitle:(NSString *)title frame:(CGRect)rect tag:(NSInteger)tag {
+- (void)createButtonWithTitle:(NSString *)title tag:(NSInteger)tag {
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = rect;
+    button.frame = CGRectMake(100, (tag * 70) + 30, 120, 50);
     [button setTitle:title forState:UIControlStateNormal];
     button.tag = tag;
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

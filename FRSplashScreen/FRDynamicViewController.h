@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FRDynamicViewController : UIViewController
+@interface FRDynamicViewController : UIViewController <UIDynamicAnimatorDelegate, UICollisionBehaviorDelegate>
 
 @end
