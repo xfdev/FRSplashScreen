@@ -9,6 +9,7 @@
 #import "ViewController.h"
 
 #import "FRSplashScreenViewController.h"
+#import "FRDynamicViewController.h"
 
 @interface ViewController ()
 
@@ -20,23 +21,54 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    CGFloat x = 100;
+    CGFloat w = 120;
+    CGFloat h = 50;
+    
+    [self createButtonWithTitle:@"POP" frame:CGRectMake(x, 100, w, h) tag:1];
+    [self createButtonWithTitle:@"UIDynamic" frame:CGRectMake(x, 200, w, h) tag:2];
+    
+    
+    
+    
+    
+    
+}
+
+- (void)createButtonWithTitle:(NSString *)title frame:(CGRect)rect tag:(NSInteger)tag {
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(10, 200, 300, 300);
-    button.center = self.view.center;
-    [button setTitle:@"push" forState:UIControlStateNormal];
+    button.frame = rect;
+    [button setTitle:title forState:UIControlStateNormal];
+    button.tag = tag;
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
     button.backgroundColor = [UIColor greenColor];
     [self.view addSubview:button];
-    
 }
+
 
 - (void)clickButton:(UIButton *)button {
     
-    FRSplashScreenViewController *splash = [[FRSplashScreenViewController alloc] init];
+    NSInteger tag = button.tag;
+    if (tag == 1) {
+        
+        FRSplashScreenViewController *splash = [[FRSplashScreenViewController alloc] init];
+        
+        [self.navigationController pushViewController:splash animated:YES];
+        
+    } else if (tag == 2) {
+        
+        FRDynamicViewController *dynamic = [[FRDynamicViewController alloc] init];
+        
+        [self.navigationController pushViewController:dynamic animated:YES];
+        
+    } else if (tag == 3) {
+        
+        
+        
+    }
     
-    [self.navigationController pushViewController:splash animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B1EA1041DE96BB600C0FD09 /* FRDynamicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B1EA1031DE96BB600C0FD09 /* FRDynamicViewController.m */; };
 		4E7A4BA5D30BF9ED1AC086FB /* libPods-FRSplashScreenUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5501723C4C47B970296A10F0 /* libPods-FRSplashScreenUITests.a */; };
 		AA165E5681AF95D48F303ABB /* libPods-FRSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8328FE1E9B48216CEAB511C3 /* libPods-FRSplashScreen.a */; };
 		E08D48A11DE7EFA8006BE242 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E08D48A01DE7EFA8006BE242 /* main.m */; };
@@ -37,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B1EA1021DE96BB600C0FD09 /* FRDynamicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRDynamicViewController.h; sourceTree = "<group>"; };
+		2B1EA1031DE96BB600C0FD09 /* FRDynamicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FRDynamicViewController.m; sourceTree = "<group>"; };
 		4D2E42032B355EA8DCA73425 /* Pods-FRSplashScreenUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FRSplashScreenUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FRSplashScreenUITests/Pods-FRSplashScreenUITests.release.xcconfig"; sourceTree = "<group>"; };
 		53C8D817761EBE92AE9A8843 /* libPods-FRSplashScreenTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FRSplashScreenTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5501723C4C47B970296A10F0 /* libPods-FRSplashScreenUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FRSplashScreenUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -146,6 +149,8 @@
 				E08D48A61DE7EFA8006BE242 /* ViewController.m */,
 				E08D48D21DE7F175006BE242 /* FRSplashScreenViewController.h */,
 				E08D48D31DE7F175006BE242 /* FRSplashScreenViewController.m */,
+				2B1EA1021DE96BB600C0FD09 /* FRDynamicViewController.h */,
+				2B1EA1031DE96BB600C0FD09 /* FRDynamicViewController.m */,
 				E08D48AB1DE7EFA8006BE242 /* Assets.xcassets */,
 				E08D48B01DE7EFA8006BE242 /* Info.plist */,
 				E08D489F1DE7EFA8006BE242 /* Supporting Files */,
@@ -250,6 +255,7 @@
 		E08D48941DE7EFA8006BE242 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = FR;
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = github.com/xfdev;
 				TargetAttributes = {
@@ -457,6 +463,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B1EA1041DE96BB600C0FD09 /* FRDynamicViewController.m in Sources */,
 				E08D48A71DE7EFA8006BE242 /* ViewController.m in Sources */,
 				E08D48A41DE7EFA8006BE242 /* AppDelegate.m in Sources */,
 				E08D48A11DE7EFA8006BE242 /* main.m in Sources */,
