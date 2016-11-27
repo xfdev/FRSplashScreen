@@ -212,6 +212,12 @@
             
         }];
         
+#warning Here's a question ??? -- 这里有一个疑问？？？
+        // 这里 removeAllBehaviors 不起作用，sel111，sel222，sel44都能打印所有的 behaviors ，WHY？？？？
+//        NSLog(@"sel111 = %@",self.animator.behaviors);
+//        [self.animator removeAllBehaviors];
+//        NSLog(@"sel222 = %@",self.animator.behaviors);
+        
         self.animator = nil;
         return;
     }
