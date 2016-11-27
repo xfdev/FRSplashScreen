@@ -10,15 +10,15 @@
 
 #import <pop/POP.h>
 
-@interface FRDynamicView : UIImageView <UIDynamicItem>
+@interface FRDynamicView : UIImageView
 
 @end
 
 @implementation FRDynamicView
 
-- (UIDynamicItemCollisionBoundsType)collisionBoundsType {
-    return UIDynamicItemCollisionBoundsTypeEllipse;
-}
+//- (UIDynamicItemCollisionBoundsType)collisionBoundsType {
+//    return UIDynamicItemCollisionBoundsTypeEllipse;
+//}
 
 @end
 
@@ -76,6 +76,7 @@
 //    line.backgroundColor = [UIColor whiteColor];
 //    [bgView addSubview:line];
     
+    // 这里的动力执行者DynamicAnimator必须是全剧状态，不然会被释放，之后就停止执行
     self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:bgView];
     self.animator.delegate = self;
     
@@ -86,16 +87,16 @@
     self.collBehavior.collisionDelegate = self;
     
     CGRect frame1 = CGRectMake(0+200, SCREEN_HEIGHT - 20, SCREEN_WIDTH, 1);
-    UIView *line1 = [UIView new];
-    line1.frame = frame1;
-    line1.backgroundColor = [UIColor redColor];
-    [bgView addSubview:line1];
+//    UIView *line1 = [UIView new];
+//    line1.frame = frame1;
+//    line1.backgroundColor = [UIColor redColor];
+//    [bgView addSubview:line1];
     
     CGRect frame2 = CGRectMake(SCREEN_WIDTH/2+200, SCREEN_HEIGHT - 150, SCREEN_WIDTH/2, 1);
-    UIView *line2 = [UIView new];
-    line2.frame = frame2;
-    line2.backgroundColor = [UIColor redColor];
-    [bgView addSubview:line2];
+//    UIView *line2 = [UIView new];
+//    line2.frame = frame2;
+//    line2.backgroundColor = [UIColor redColor];
+//    [bgView addSubview:line2];
     
     [self.collBehavior addBoundaryWithIdentifier:@"bottom1" fromPoint:CGPointMake(frame1.origin.x, frame1.origin.y) toPoint:CGPointMake(frame1.origin.x + frame1.size.width, frame1.origin.y)];
     
@@ -110,12 +111,15 @@
     
 //    self.attachmentBehavior = [[UIAttachmentBehavior alloc] initWithItem:self.testView attachedToAnchor:nil];
     
+    
+    
+    
     self.itemBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[self.testView]];
     self.itemBehavior.elasticity = 0.6;
     self.itemBehavior.density = 1;
     
     self.pushBehavior = [[UIPushBehavior alloc] initWithItems:@[self.testView] mode:UIPushBehaviorModeInstantaneous];
-    self.pushBehavior.pushDirection = CGVectorMake(0.4, 0);
+    self.pushBehavior.pushDirection = CGVectorMake(0.4, 0.1);
     
     
     
@@ -135,10 +139,12 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
+    NSLog(@"sel44 = %@",self.animator.behaviors);
+    
     POPBasicAnimation *spring1 = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerSize];
     //    spring1.fromValue = [NSValue valueWithCGSize:CGSizeMake(88, 88)];
     spring1.toValue = [NSValue valueWithCGSize:CGSizeMake(20, 20)];
-    spring1.duration = 3;
+    spring1.duration = 1.2;
     spring1.beginTime = CACurrentMediaTime() + 0.5;
     [self.testView.layer pop_addAnimation:spring1 forKey:@"size1.POPPropertyAnimation"];
     
@@ -172,14 +178,48 @@
     
     CGFloat dy = -0.55;
     
-    if (self.pushBehavior.pushDirection.dy == dy) {
-        [self.animator removeAllBehaviors];
+    if ([(NSString *)identifier isEqualToString:@"bottom2"]) {
+        
+        POPBasicAnimation *center = [POPBasicAnimation animationWithPropertyNamed:kPOPViewCenter];
+        //    spring1.fromValue = [NSValue valueWithCGSize:CGSizeMake(88, 88)];
+        center.toValue = [NSValue valueWithCGPoint:CGPointMake(200 + 320/2, SCREEN_HEIGHT/2)];
+        center.duration = 0.5;
+//        spring1.beginTime = CACurrentMediaTime() + 0.5;
+        [self.testView pop_addAnimation:center forKey:@""];
+        
+        POPBasicAnimation *size = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerSize];
+        //    spring1.fromValue = [NSValue valueWithCGSize:CGSizeMake(88, 88)];
+        size.toValue = [NSValue valueWithCGSize:CGSizeMake(50, 50)];
+        size.duration = 0.5;
+        //        spring1.beginTime = CACurrentMediaTime() + 0.5;
+        [self.testView.layer pop_addAnimation:size forKey:@""];
+        
+        [size setAnimationDidReachToValueBlock:^(POPAnimation *animation) {
+            
+            POPBasicAnimation *size2 = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerSize];
+            //    spring1.fromValue = [NSValue valueWithCGSize:CGSizeMake(88, 88)];
+            size2.toValue = [NSValue valueWithCGSize:CGSizeMake(SCREEN_HEIGHT, SCREEN_HEIGHT)];
+            size2.duration = 0.5;
+            //        spring1.beginTime = CACurrentMediaTime() + 0.5;
+            [self.testView.layer pop_addAnimation:size2 forKey:@""];
+            
+            POPBasicAnimation *alp = [POPBasicAnimation animationWithPropertyNamed:kPOPViewAlpha];
+            //    spring1.fromValue = [NSValue valueWithCGSize:CGSizeMake(88, 88)];
+            alp.toValue = @(0.0);
+            alp.duration = 0.3;
+            //        spring1.beginTime = CACurrentMediaTime() + 0.5;
+            [self.testView pop_addAnimation:alp forKey:@""];
+            
+        }];
+        
+        self.animator = nil;
+        return;
     }
+    
     [self.animator removeBehavior:self.pushBehavior];
     
     self.pushBehavior = [[UIPushBehavior alloc] initWithItems:@[self.testView] mode:UIPushBehaviorModeInstantaneous];
     self.pushBehavior.pushDirection = CGVectorMake(0.3, dy);
-    
     [self.animator addBehavior:self.pushBehavior];
 }
 
